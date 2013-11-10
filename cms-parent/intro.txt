@@ -1,0 +1,10 @@
+1.Maven的分模块管理
+	-basic-hibernate
+	-cms-core --->model,dao
+	-cms-user --->用户管理 user role group
+	-cms-article--->channel,article
+	-cms-system--->link,backup,info
+	-cms-web--->web
+	-cms-parent
+	
+	
