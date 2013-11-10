@@ -1,9 +1,9 @@
-package com.scp.dao;
+package com.scp.basic.dao;
 
-import org.scp.basic.model.User;
 import org.springframework.stereotype.Repository;
 
-import com.scp.baisc.dao.BaseDao;
+import com.scp.basic.dao.BaseDao;
+import com.scp.basic.model.User;
 
 @Repository("userDao")
 public class UserDao extends BaseDao<User> implements IUserDao {

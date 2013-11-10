@@ -1,0 +1,7 @@
+com\scp\basic\dao\UserDao.class
+com\scp\test\util\AbstractDbUnitTestCase.class
+com\scp\basic\dao\TestUserDao.class
+com\scp\basic\dao\IUserDao.class
+com\scp\test\util\EntitiesHelper.class
+com\scp\test\util\DbUtil.class
+com\scp\basic\model\User.class

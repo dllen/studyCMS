@@ -4,7 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.scp.basic.model.User;
+import com.scp.basic.model.User;
 
 
 public class EntitiesHelper {

@@ -1,0 +1,4 @@
+com\scp\basic\dao\BaseDao.class
+com\scp\basic\model\Pager.class
+com\scp\basic\model\SystemContext.class
+com\scp\basic\dao\IBaseDao.class

@@ -1,6 +1,7 @@
-package com.scp.baisc.dao;
+package com.scp.basic.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,13 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
+import org.springframework.stereotype.Repository;
 
 import com.scp.basic.model.Pager;
 import com.scp.basic.model.SystemContext;
 
 @SuppressWarnings("unchecked")
+@Repository("baseDao")
 public class BaseDao<T> implements IBaseDao<T> {
 
 	private SessionFactory sessionFactory;
@@ -41,8 +44,13 @@ public class BaseDao<T> implements IBaseDao<T> {
 		return clz;
 	}
 
+	/**
+	 * 获取当前session
+	 * 
+	 * @return
+	 */
 	protected Session getSession() {
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 
 	private String initSort(String hql) {
@@ -108,11 +116,11 @@ public class BaseDao<T> implements IBaseDao<T> {
 
 	private String getCountHql(String hql, boolean isHql) {
 
-		String e = hql.substring(hql.indexOf("form"));
+		String e = hql.substring(hql.indexOf("from"));
 
 		String b = "select count(*) ";
 
-		String c = e + b;
+		String c = b + e;
 
 		if (isHql)
 			c.replaceAll("fetch", "");
@@ -139,7 +147,7 @@ public class BaseDao<T> implements IBaseDao<T> {
 
 	@Override
 	public T load(int id) {
-		return (T) getSession().load(clz, id);
+		return (T) getSession().load(getClz(), id);
 	}
 
 	@Override
@@ -197,7 +205,7 @@ public class BaseDao<T> implements IBaseDao<T> {
 	public Pager<T> find(String hql, Object[] args, Map<String, Object> alias) {
 		hql = initSort(hql);
 		String cq = getCountHql(hql, true);
-		cq = initSort(cq);
+		// cq = initSort(cq);
 		Query cQuery = getSession().createQuery(cq);
 		Query query = getSession().createQuery(hql);
 		setAlisParameter(query, alias);
@@ -277,27 +285,27 @@ public class BaseDao<T> implements IBaseDao<T> {
 	}
 
 	@Override
-	public List<Object> listBySql(String sql, Object[] args, Class<Object> clz,
-			boolean isEntity) {
+	public <N extends Object> List<N> listBySql(String sql, Object[] args,
+			Class<?> clz, boolean isEntity) {
 		return this.listBySql(sql, args, null, clz, isEntity);
 	}
 
 	@Override
-	public List<Object> listBySql(String sql, Object arg, Class<Object> clz,
-			boolean isEntity) {
+	public <N extends Object> List<N> listBySql(String sql, Object arg,
+			Class<?> clz, boolean isEntity) {
 		return this.listBySql(sql, new Object[] { arg }, clz, isEntity);
 	}
 
 	@Override
-	public List<Object> listBySql(String sql, Class<Object> clz,
+	public <N extends Object> List<N> listBySql(String sql, Class<?> clz,
 			boolean isEntity) {
 
 		return this.listBySql(sql, null, clz, isEntity);
 	}
 
 	@Override
-	public List<Object> listBySql(String sql, Object[] args,
-			Map<String, Object> alias, Class<Object> clz, boolean isEntity) {
+	public <N extends Object> List<N> listBySql(String sql, Object[] args,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 		sql = initSort(sql);
 
 		SQLQuery sqlQuery = getSession().createSQLQuery(sql);
@@ -316,74 +324,74 @@ public class BaseDao<T> implements IBaseDao<T> {
 	}
 
 	@Override
-	public List<Object> listBySql(String sql, Object arg,
-			Map<String, Object> alias, Class<Object> clz, boolean isEntity) {
+	public <N extends Object> List<N> listBySql(String sql, Object arg,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 
 		return this.listBySql(sql, new Object[] { arg }, alias, clz, isEntity);
 	}
 
 	@Override
-	public List<Object> listByAliasSql(String sql, Map<String, Object> alias,
-			Class<Object> clz, boolean isEntity) {
+	public <N extends Object> List<N> listByAliasSql(String sql,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 		return this.listBySql(sql, null, alias, clz, isEntity);
 	}
 
 	@Override
-	public Pager<Object> findBySql(String sql, Object[] args,
-			Class<Object> clz, boolean isEntity) {
+	public <N extends Object> Pager<N> findBySql(String sql, Object[] args,
+			Class<?> clz, boolean isEntity) {
 
 		return this.findBySql(sql, args, null, clz, isEntity);
 	}
 
 	@Override
-	public Pager<Object> findBySql(String sql, Object arg, Class<Object> clz,
-			boolean isEntity) {
+	public <N extends Object> Pager<N> findBySql(String sql, Object arg,
+			Class<?> clz, boolean isEntity) {
 
 		return this.findBySql(sql, new Object[] { arg }, clz, isEntity);
 	}
 
 	@Override
-	public Pager<Object> findBySql(String sql, Class<Object> clz,
+	public <N extends Object> Pager<N> findBySql(String sql, Class<?> clz,
 			boolean isEntity) {
 
 		return this.findBySql(sql, null, clz, isEntity);
 	}
 
 	@Override
-	public Pager<Object> findBySql(String sql, Object[] args,
-			Map<String, Object> alias, Class<Object> clz, boolean isEntity) {
-		String cq = getCountHql(sql, false);
+	public <N extends Object> Pager<N> findBySql(String sql, Object[] args,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 		sql = initSort(sql);
+		String cq = getCountHql(sql, false);
 		SQLQuery sq = getSession().createSQLQuery(sql);
 		Query cquery = getSession().createSQLQuery(cq);
 		setAlisParameter(sq, alias);
 		setAlisParameter(cquery, alias);
 		setParameter(sq, args);
 		setParameter(cquery, args);
-		Pager pager = new Pager();
+		Pager<N> pager = new Pager<N>();
 		setPagers(sq, pager);
 		if (isEntity) {
 			sq.addEntity(clz);
 		} else {
 			sq.setResultTransformer(Transformers.aliasToBean(clz));
 		}
-		List datas = sq.list();
+		List<N> datas = sq.list();
 		pager.setDatas(datas);
-		long total = (Long) cquery.uniqueResult();
+		long total = ((BigInteger) cquery.uniqueResult()).longValue();
 		pager.setTotal(total);
 		return pager;
 	}
 
 	@Override
-	public Pager<Object> findBySql(String sql, Object arg,
-			Map<String, Object> alias, Class<Object> clz, boolean isEntity) {
+	public <N extends Object> Pager<N> findBySql(String sql, Object arg,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 
 		return this.findBySql(sql, new Object[] { arg }, alias, clz, isEntity);
 	}
 
 	@Override
-	public Pager<Object> findByAliasSql(String sql, Map<String, Object> alias,
-			Class<Object> clz, boolean isEntity) {
+	public <N extends Object> Pager<N> findByAliasSql(String sql,
+			Map<String, Object> alias, Class<?> clz, boolean isEntity) {
 
 		return this.findBySql(sql, null, alias, clz, isEntity);
 	}

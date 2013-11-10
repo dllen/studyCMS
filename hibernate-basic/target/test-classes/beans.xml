@@ -14,7 +14,7 @@
 	<!-- 打开Spring的Annotation支持 -->
 	<context:annotation-config />
 	<!-- 设定Spring 去哪些包中找Annotation -->
-	<context:component-scan base-package="org.scp" />
+	<context:component-scan base-package="com.scp" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -42,10 +42,9 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 设置Spring取那个包中查找相应的实体类 -->
 		<property name="packagesToScan">
-			<value>org.scp.basic.model</value>
+			<value>com.scp.basic.model</value>
 		</property>
 		<property name="hibernateProperties">
-			<!-- <value> hibernate.dialect=org.hibernate.dialect.HSQLDialect </value> -->
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
@@ -66,7 +65,7 @@
 		<!-- 设置pointCut表示哪些方法要加入事务处理 -->
 		<!-- 以下的事务是声明在DAO中，但是通常都会在Service来处理多个业务对象逻辑的关系，注入删除，更新等，此时如果在执行了一个步骤之后抛出异常 
 			就会导致数据不完整，所以事务不应该在DAO层处理，而应该在service，这也就是Spring所提供的一个非常方便的工具，声明式事务 -->
-		<aop:pointcut id="allMethods" expression="execution(* org.scp.dao.*.*(..))" />
+		<aop:pointcut id="allMethods" expression="execution(* com.scp.basic.dao.*.*(..))" />
 		<!-- 通过advisor来确定具体要加入事务控制的方法 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allMethods" />
 	</aop:config>
