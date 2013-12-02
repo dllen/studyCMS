@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<cms_user id="1" username="admin1" password="123" nickname="admin1"
+		email="admin1@admin.com" status="1" phone="110" create_date="2010-12-12" />
+	<cms_user id="2" username="admin2" password="123" nickname="admin1"
+		email="admin1@admin.com" status="1" phone="110" create_date="2010-12-12" />
+	<cms_user id="3" username="admin3" password="123" nickname="admin1"
+		email="admin1@admin.com" status="1" phone="110" create_date="2010-12-12" />
+
+	<cms_group id="1" name="财务处" descr="负责财务部门的网页" />
+	<cms_group id="2" name="计科系" descr="负责财务部门的网页" />
+	<cms_group id="3" name="宣传部" descr="负责财务部门的网页" />
+
+	<cms_role id="1" name="管理员" role_type="ROLE_ADMIN" />
+	<cms_role id="2" name="文章发布人员" role_type="ROLE_PUBLISH" />
+	<cms_role id="3" name="文章审核人员" role_type="ROLE_AUDIT" />
+
+	<cms_user_role id="1" u_id="1" r_id="1" />
+	<cms_user_role id="2" u_id="2" r_id="2" />
+	<cms_user_role id="3" u_id="2" r_id="3" />
+	<cms_user_role id="4" u_id="3" r_id="2" />
+
+	<cms_user_group id="1" u_id="2" g_id="1" />
+	<cms_user_group id="2" u_id="2" g_id="2" />
+	<cms_user_group id="3" u_id="2" g_id="3" />
+	<cms_user_group id="4" u_id="3" g_id="1" />
+	<cms_user_group id="5" u_id="3" g_id="3" />
+	
+</dataset>

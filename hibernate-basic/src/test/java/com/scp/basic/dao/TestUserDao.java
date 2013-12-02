@@ -96,7 +96,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		DatabaseOperation.CLEAN_INSERT.execute(dbunitCon, ds);
 		SystemContext.setOrder("desc");
 		SystemContext.setSort("id");
-		List<User> expected = userDao.list("from User where id>? and id<?",
+		List<User> expected = userDao.listUser("from User where id>? and id<?",
 				new Object[] { 1, 4 });
 		List<User> actuals = Arrays.asList(new User(3, "admin3"), new User(2,
 				"admin2"));
@@ -114,7 +114,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setSort("id");
 		Map<String, Object> alias = new HashMap<String, Object>();
 		alias.put("ids", Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 10));
-		List<User> expected = userDao.list(
+		List<User> expected = userDao.listUser(
 				"from User where id>? and id<? and id in(:ids)", new Object[] {
 						1, 5 }, alias);
 		List<User> actuals = Arrays.asList(new User(2, "admin2"), new User(3,
@@ -132,7 +132,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setSort("id");
 		SystemContext.setPageSize(3);
 		SystemContext.setPageOffset(0);
-		Pager<User> expected = userDao.find("from User where id>=? and id<=?",
+		Pager<User> expected = userDao.findUser("from User where id>=? and id<=?",
 				new Object[] { 1, 10 });
 		List<User> actuals = Arrays.asList(new User(10, "admin10"), new User(9,
 				"admin9"), new User(8, "admin8"));
@@ -154,7 +154,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setPageOffset(0);
 		Map<String, Object> alias = new HashMap<String, Object>();
 		alias.put("ids", Arrays.asList(1, 2, 4, 5, 6, 7, 8, 10));
-		Pager<User> expected = userDao.find(
+		Pager<User> expected = userDao.findUser(
 				"from User where id>=? and id<=? and id in (:ids)",
 				new Object[] { 1, 10 }, alias);
 		List<User> actuals = Arrays.asList(new User(1, "admin1"), new User(2,
@@ -172,7 +172,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		DatabaseOperation.CLEAN_INSERT.execute(dbunitCon, ds);
 		SystemContext.setOrder("desc");
 		SystemContext.setSort("id");
-		List<User> expected = userDao.listBySql(
+		List<User> expected = userDao.listUserBySql(
 				"select * from t_user where id>? and id<?",
 				new Object[] { 1, 4 }, User.class, true);
 		List<User> actuals = Arrays.asList(new User(3, "admin3"), new User(2,
@@ -191,7 +191,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setSort("id");
 		Map<String, Object> alias = new HashMap<String, Object>();
 		alias.put("ids", Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 10));
-		List<User> expected = userDao.listBySql(
+		List<User> expected = userDao.listUserBySql(
 				"select * from t_user where id>? and id<? and id in(:ids)",
 				new Object[] { 1, 5 }, alias, User.class, true);
 		List<User> actuals = Arrays.asList(new User(2, "admin2"), new User(3,
@@ -209,7 +209,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setSort("id");
 		SystemContext.setPageSize(3);
 		SystemContext.setPageOffset(0);
-		Pager<User> expected = userDao.findBySql(
+		Pager<User> expected = userDao.findUserBySql(
 				"select * from t_user where id>=? and id<=?", new Object[] { 1,
 						10 }, User.class, true);
 		List<User> actuals = Arrays.asList(new User(10, "admin10"), new User(9,
@@ -232,7 +232,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 		SystemContext.setPageOffset(0);
 		Map<String, Object> alias = new HashMap<String, Object>();
 		alias.put("ids", Arrays.asList(1, 2, 4, 5, 6, 7, 8, 10));
-		Pager<User> expected = userDao.findBySql(
+		Pager<User> expected = userDao.findUserBySql(
 				"select * from t_user where id>=? and id<=? and id in (:ids)",
 				new Object[] { 1, 10 }, alias, User.class, true);
 		List<User> actuals = Arrays.asList(new User(1, "admin1"), new User(2,
