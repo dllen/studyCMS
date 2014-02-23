@@ -216,6 +216,7 @@ public class TestUserDao extends AbstractDbUnitTestCase {
 
 	@Test
 	public void testFindUser() {
+		//测试分页查询
 		SystemContext.setPageOffset(0);
 		SystemContext.setPageSize(15);
 		List<User> actuals = Arrays.asList(new User(1, "admin1", "123",

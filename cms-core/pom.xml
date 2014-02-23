@@ -4,16 +4,14 @@
 
 	<artifactId>cms-core</artifactId>
 	<packaging>jar</packaging>
-
-	<name>cms-core</name>
-	<url>http://maven.apache.org</url>
-
 	<parent>
 		<groupId>com.scp.cms</groupId>
 		<artifactId>cms-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../cms-parent/pom.xml</relativePath>
 	</parent>
+	<name>cms-core</name>
+	<url>http://maven.apache.org</url>
 
 	<dependencies>
 
@@ -37,10 +35,6 @@
 			<artifactId>jsr303</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -59,9 +53,11 @@
 			<artifactId>dbunit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.github.springtestdbunit</groupId>
 			<artifactId>spring-test-dbunit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

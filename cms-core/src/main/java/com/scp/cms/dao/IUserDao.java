@@ -97,7 +97,7 @@ public interface IUserDao extends IBaseDao<User> {
 	 * 删除用户的组信息
 	 * @param gid
 	 */
-	public void deleteUserGroups(int gid);
+	public void deleteUserGroups(int uid);
 	
 	public Pager<User> findUser();
 	/**

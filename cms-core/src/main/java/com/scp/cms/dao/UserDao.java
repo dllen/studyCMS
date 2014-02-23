@@ -47,6 +47,7 @@ public class UserDao extends BaseDao<User> implements IUserDao {
 
 	@Override
 	public UserRole loadUserRole(int userId, int roleId) {
+		// 考虑抓取策略
 		String hql = "select ur from UserRole ur left join fetch ur.user u left join fetch ur.role r where u.id=? and r.id=?";
 		return (UserRole) this.getSession().createQuery(hql)
 				.setParameter(0, userId).setParameter(1, roleId).uniqueResult();
@@ -113,9 +114,9 @@ public class UserDao extends BaseDao<User> implements IUserDao {
 	}
 
 	@Override
-	public void deleteUserGroups(int gid) {
+	public void deleteUserGroups(int uid) {
 		String hql = "delete UserGroup ug where ug.user.id=?";
-		this.updateByHql(hql, gid);
+		this.updateByHql(hql, uid);
 	}
 
 	@Override

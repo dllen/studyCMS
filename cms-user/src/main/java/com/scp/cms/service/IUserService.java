@@ -2,6 +2,7 @@ package com.scp.cms.service;
 
 import java.util.List;
 
+import com.scp.basic.model.Pager;
 import com.scp.cms.model.Group;
 import com.scp.cms.model.Role;
 import com.scp.cms.model.User;
@@ -42,10 +43,11 @@ public interface IUserService {
 
 	public User load(Integer id);
 
-	public List<User> findUser();
+	public Pager<User> findUser();
 
 	public List<Role> listUserRoles(Integer id);
 
 	public List<Group> listUserGroups(Integer id);
+	
 
 }

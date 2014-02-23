@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.scp.basic.dao.TestUserDao
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.424 sec
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.965 sec
